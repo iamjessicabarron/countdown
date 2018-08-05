@@ -1,9 +1,7 @@
-
 // TODO: Set dateTime value to today tomorrow?
 // TODO: Random placeholders for labels
 // TODO: Edit events
 // TODO: No events alert shows up when clicking on the thing again
-
 
 
 let idIncrementor = 0
@@ -31,16 +29,15 @@ function main() {
     document.querySelector("#submitEventContainer").classList.add("show")
   })
 
-  handleNoEventsMessage() 
   // dateTime.value = moment().format('YYYY-MM-DDTHH:mm') // TODO: Make this actually work
 }
 
 function handleNoEventsMessage() {
   console.log("handling no events!")
   if (events.length < 1) {
-    console.log("is empty!")
     document.querySelector("#noEventsAlert").classList.add("true")
   } else {
+    console.log("There's events here!")
     document.querySelector("#noEventsAlert").classList.remove("true")
   }
 }
@@ -92,8 +89,9 @@ function pullAllEvents() {
         console.log("Error: ID of last item is undefined")
       }
     }
-    
   });
+
+  handleNoEventsMessage() 
 }
 
 function removeEvent(id) {
@@ -108,7 +106,12 @@ function removeEvent(id) {
     return element.id !== parseInt(id)
   })
 
-  console.log("after", events)
+    // Store in chrome sync
+    chrome.storage.sync.set({'events': events}, function() {
+      console.log("Success! Events pushed")
+      console.log(">", events)
+    });
+
   console.log("Successfully removed event", element)
 
   handleNoEventsMessage()

@@ -1,10 +1,10 @@
 console.log("Running!")
 
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({'events': []}, function() {
-    console.log("Setup events storage")
-  });
-});
+// chrome.runtime.onInstalled.addListener(function() {
+//   chrome.storage.sync.set({'events': []}, function() {
+//     console.log("Setup events storage")
+//   });
+// });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   // No tabs or host permissions needed!
