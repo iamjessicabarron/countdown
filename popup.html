@@ -3,37 +3,136 @@
   <head>
     <title>Countdown Popup</title>
     <style>
-      /* Style stuff goes here! */
-      #eventsContainer {
-        padding: 10px;
-        background-color:#ddd;
+
+      body {
+        width: 300px;
         font-family: 'Courier New', Courier, monospace;
       }
+
+      label {
+        display: block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      #addEventButton {
+        border: none;
+        padding: 4px 10px;
+        background-color: #ddd;
+        font-size: 20px;
+        margin-top: 0px;
+        font-weight: bold;
+      }
+
+      #addEventContainer {
+        margin-top: 4px;
+        border: 1px white solid;
+        border-bottom: none;
+      }
+
+      #addEventContainer.show {
+        border: 1px solid grey;
+        border-bottom: none;
+      }
+
+      #addEventForm {
+        display: none;
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border: 1px solid grey;
+        border-top: none;
+        border-bottom: none;
+      }
+
+      #submitEventContainer {
+        border: 1px solid grey;
+        border-top: none;
+        display: none;
+      }
+
+      #submitEventContainer.show {
+        display: block;
+      }
+
+      #addEventForm.show {
+        display: block;
+      }
+
+      /* .formBlock {
+        width: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+      } */
+
+      /* .formBlock::first-child {
+        padding-right: 10px;
+      } */
+
+      input {
+        font-family: 'Courier New', Courier, monospace;
+        padding: 8px 8px;
+        width:  -webkit-fill-available;
+      }
+
+      #submitEventButton {
+        border: none;
+        padding: 4px 10px;
+        background-color: #ddd;
+        font-size: 20px;
+        margin-top: 30px;
+      }
+
+      #noEventsAlert {
+        display: none;
+      }
+
+      #noEventsAlert.true {
+        display: block;
+      }
+
+      .eventContainer {
+        margin-top: 4px;
+        background-color:#ddd;
+        padding: 10px;
+      }
+
     </style>
   </head>
   <body>
-          <h3>Submit an Event</h3>
+    <div id="eventsContainer">
+      <div id="noEventsAlert" class="eventContainer">
+        <p>There's no events here! Add an event below</p>
+      </div>
+    </div>
+    <div id="addEventContainer">
+      <button id="addEventButton">+</button>
+    </div>
 
-          <div>
-              <label for="titleInput">Label</label>
-              <input type="text"
-                     id="titleInput"
-                     name="titleInput" 
-                     value="Label"/>
-          </div>
+    <!-- Form -->
+    <div id="addEventForm">
+      <div class="formBlock">
+          <label for="titleInput">Label</label>
+          <input type="text"
+                  id="titleInput"
+                  name="titleInput" 
+                  placeholder="Event Label"/>
+      </div>
       
-          <div>
-              <label for="dateTimeInput">Date/time:</label>
-              <input type="datetime-local" 
-                     id="dateTimeInput"
-                     name="dateTimeInput" 
-                     value="2018-06-12T19:30"/>
-          </div>
-          <button id="submitEvent">Submit Event</button>
+      <div class="formBlock">
+          <label for="dateTimeInput">Date/time:</label>
+          <input type="datetime-local" 
+                  id="dateTimeInput"
+                  name="dateTimeInput" 
+                  value="2018-06-12T19:30"/>
+      </div>
+    </div>
+    <div id="submitEventContainer">
+      <button id="submitEventButton">&#10003</button>
+    </div>
 
-          <div id="eventsContainer">
 
-          </div>
   </body>
   <script src="lib/moment.js"></script>
   <script src="popup.js"></script>

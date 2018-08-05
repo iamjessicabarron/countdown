@@ -1,4 +1,10 @@
 
+// TODO: Set dateTime value to today tomorrow?
+// TODO: Random placeholders for labels
+// TODO: Edit events
+// TODO: No events alert shows up when clicking on the thing again
+
+
 
 let idIncrementor = 0
 let events = []
@@ -12,11 +18,31 @@ function main() {
   pullAllEvents()
 
   // Event Listeners
-  document.querySelector("#submitEvent").addEventListener('click', function() {
+  document.querySelector("#submitEventButton").addEventListener('click', function() {
     pushEvent()
+    document.querySelector("#addEventContainer").classList.remove("show")
+    document.querySelector("#addEventForm").classList.remove("show")
+    document.querySelector("#submitEventContainer").classList.remove("show")
   })
 
+  document.querySelector("#addEventButton").addEventListener('click', function() {
+    document.querySelector("#addEventContainer").classList.add("show")
+    document.querySelector("#addEventForm").classList.add("show")
+    document.querySelector("#submitEventContainer").classList.add("show")
+  })
+
+  handleNoEventsMessage() 
   // dateTime.value = moment().format('YYYY-MM-DDTHH:mm') // TODO: Make this actually work
+}
+
+function handleNoEventsMessage() {
+  console.log("handling no events!")
+  if (events.length < 1) {
+    console.log("is empty!")
+    document.querySelector("#noEventsAlert").classList.add("true")
+  } else {
+    document.querySelector("#noEventsAlert").classList.remove("true")
+  }
 }
 
 function pushEvent() {
@@ -42,6 +68,8 @@ function pushEvent() {
 
   // Increment ID
   idIncrementor+=1
+
+  handleNoEventsMessage()
 }
 
 function pullAllEvents() {
@@ -82,6 +110,8 @@ function removeEvent(id) {
 
   console.log("after", events)
   console.log("Successfully removed event", element)
+
+  handleNoEventsMessage()
 }
 
 function addToEventsContainer(obj) {
@@ -90,23 +120,28 @@ function addToEventsContainer(obj) {
   // const fragment = document.createDocumentFragment() 
 
   let eventContainer = document.createElement("div")
-  eventContainer.id = "eventContainer"
+  eventContainer.classList.add("eventContainer")
   eventContainer.setAttribute("data-eventId", String(obj.id))
 
   // Setup each element
-  let titleElement = document.createElement("p")
-  let dateTimeElement = document.createElement("p")
+  let titleElement = document.createElement("h2")
+  let dateTimeRelativeElement = document.createElement("h1")
+  let dateTimeElement = document.createElement("h3")
 
   titleElement.appendChild(document.createTextNode(obj.title))
-  dateTimeElement.appendChild(document.createTextNode(moment(obj.dateTime).fromNow()))
+  dateTimeElement.appendChild(document.createTextNode(moment(obj.dateTime).format('Do MMMM YYYY, h:mma')))
+  dateTimeRelativeElement.appendChild(document.createTextNode(moment(obj.dateTime).fromNow()))
 
-  eventContainer.appendChild(titleElement)
-  eventContainer.appendChild(dateTimeElement)
-
-  // Remove button
   let removeElement = document.createElement("sub")
   removeElement.appendChild(document.createTextNode("remove"))
+
+  eventContainer.appendChild(titleElement)
+  eventContainer.appendChild(dateTimeRelativeElement)
+  eventContainer.appendChild(dateTimeElement)
   eventContainer.appendChild(removeElement)
+  // Remove button
+
+
 
   removeElement.addEventListener('click', function(event) {
     removeEvent(event.target.parentElement.getAttribute("data-eventId"))
