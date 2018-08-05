@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Countdown Popup</title>
+    <style>
+      /* Style stuff goes here! */
+      #eventsContainer {
+        padding: 10px;
+        background-color:#ddd;
+        font-family: 'Courier New', Courier, monospace;
+      }
+    </style>
+  </head>
+  <body>
+          <h3>Submit an Event</h3>
+
+          <div>
+              <label for="titleInput">Label</label>
+              <input type="text"
+                     id="titleInput"
+                     name="titleInput" 
+                     value="Label"/>
+          </div>
+      
+          <div>
+              <label for="dateTimeInput">Date/time:</label>
+              <input type="datetime-local" 
+                     id="dateTimeInput"
+                     name="dateTimeInput" 
+                     value="2018-06-12T19:30"/>
+          </div>
+          <button id="submitEvent">Submit Event</button>
+
+          <div id="eventsContainer">
+
+          </div>
+  </body>
+  <script src="lib/moment.js"></script>
+  <script src="popup.js"></script>
+
+</html>

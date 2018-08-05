@@ -1,0 +1,20 @@
+{
+    "name": "Countdown",
+    "version": "1.0",
+    "description": "Countdown to events!",
+    "permissions": [
+      "storage",
+      "activeTab"
+    ],
+    "background": {
+      "scripts": [
+        "background.js"
+      ],
+      "persistent": false
+    },
+    "browser_action": {
+      "default_title": "Countdown", 
+      "default_popup": "popup.html"
+    },
+    "manifest_version": 2
+  }
