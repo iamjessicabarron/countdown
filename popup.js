@@ -7,15 +7,36 @@ let idIncrementor = 0
 let events = []
 let eventsContainer = document.querySelector("#eventsContainer")
 
+// User input
+let dateTimeInput = document.querySelector("#dateTimeInput")
+let titleInput = document.querySelector("#titleInput")
+
+console.log("titleInput", titleInput)
+
+dateTimeInput.addEventListener('keyup', function(e) {
+  console.log("Validating dateTime input")
+  validate(dateTimeInput)
+})
+
+titleInput.addEventListener('keyup', function(e) {
+  console.log("Validating title input")
+  validate(titleInput)
+})
+
+
 main() 
 
 // Functions
 
 function main() {
 
-  pullAllEvents()
-  addGradient()
+  pullAllEvents(function() {
+    setGradients()
+    handleNoEventsMessage()
 
+    document.querySelector("#dateTimeInput").value = moment().format('YYYY-MM-DDTHH:mm') // TODO: Make this actually work
+    
+  })
 
   // Event Listeners
   document.querySelector("#submitEventButton").addEventListener('click', function() {
@@ -31,7 +52,7 @@ function main() {
     document.querySelector("#submitEventContainer").classList.add("show")
   })
 
-  // dateTime.value = moment().format('YYYY-MM-DDTHH:mm') // TODO: Make this actually work
+
 }
 
 function handleNoEventsMessage() {
@@ -44,16 +65,23 @@ function handleNoEventsMessage() {
   }
 }
 
-function pushEvent() {
-  // User input
-  let dateTime = document.querySelector("#dateTimeInput").value
-  let title = document.querySelector("#titleInput").value
+function validate(input) {
+  console.log("validating", input)
 
+  // Sanitise
+  if (input == undefined || input.value.length < 1) {
+    input.nextElementSibling.classList.add("true")
+  } else {
+    input.nextElementSibling.classList.remove("true")
+  }
+}
+
+function pushEvent() {
   // Create an event and push it to the global array
   let event = {
     id: idIncrementor,
-    title: title,
-    dateTime: dateTime
+    titleInput: titleInput.value,
+    dateTime: dateTimeInput.value
   }
 
   events.push(event)
@@ -71,7 +99,7 @@ function pushEvent() {
   handleNoEventsMessage()
 }
 
-function pullAllEvents() {
+function pullAllEvents(cb) {
   chrome.storage.sync.get(['events'], function(result) {
     console.log("Success! All events pulled")
     console.log(">", result.events)
@@ -91,9 +119,10 @@ function pullAllEvents() {
         console.log("Error: ID of last item is undefined")
       }
     }
+    // Callback functions to call when events have been pulled
+    cb()
   });
-
-  handleNoEventsMessage() 
+ 
   return events
 }
 
@@ -134,7 +163,7 @@ function addToEventsContainer(obj) {
   let dateTimeRelativeElement = document.createElement("h1")
   let dateTimeElement = document.createElement("h3")
 
-  titleElement.appendChild(document.createTextNode(obj.title))
+  titleElement.appendChild(document.createTextNode(obj.titleInput))
   dateTimeElement.appendChild(document.createTextNode(moment(obj.dateTime).format('Do MMMM YYYY, h:mma')))
   dateTimeRelativeElement.appendChild(document.createTextNode(moment(obj.dateTime).fromNow()))
 
@@ -147,38 +176,40 @@ function addToEventsContainer(obj) {
   eventContainer.appendChild(removeElement)
   // Remove button
 
-
-
   removeElement.addEventListener('click', function(event) {
     removeEvent(event.target.parentElement.getAttribute("data-eventId"))
   })
 
   eventsContainer.appendChild(eventContainer)
+
+  setGradients()
 }
 
-function addGradient() {
+function setGradients() {
   let lightness = 0
   console.log("gradient stuff")
 
   let all = document.querySelectorAll(".eventContainer")
-  let x = 100 / all.length
-
-  console.log(all)
-  console.log(all[0])
-  console.log(all.length)
-  
-
+  let x = 100 / (all.length+1)
 
   // say 4
   // then 25
   let index = 0
 
-  for (i = 100; i > 0; i-=x) {
+  for (i = 100-x; i > 0; i-=x) {
     console.log("for loop")
     let element = all[index]
-    let hsl = `hsl(0, 0%, ${i}%)`
+    console.log("index", index)
+    console.log("element", element)
 
     // set element backgroundColor
+    element.style.backgroundColor = `hsl(0, 0%, ${i}%)`
+
+    if (i <= 50) {
+      element.style.color = 'white'
+    } else {
+      element.style.color = 'black'
+    }
     console.log(element)
 
     index++

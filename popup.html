@@ -19,7 +19,8 @@
       #addEventButton {
         border: none;
         padding: 4px 10px;
-        background-color: #ddd;
+        background-color: black;
+        color: white;
         font-size: 20px;
         margin-top: 0px;
         font-weight: bold;
@@ -76,16 +77,34 @@
         width:  -webkit-fill-available;
       }
 
+      .validationAlert {
+        padding: 10px;
+        background-color: red;
+        color: white;
+        display: none;
+      }
+
+      .validationAlert p {
+        margin: 0;
+        font-size: 10px;
+      }
+
+      .validationAlert.true {
+        display: block;
+      }
+
+
       #submitEventButton {
         border: none;
         padding: 4px 10px;
-        background-color: #ddd;
+        background-color: black;
+        color: white;
         font-size: 20px;
         margin-top: 30px;
       }
 
       #noEventsAlert {
-        display: none!important;
+        display: none;
       }
 
       #noEventsAlert.true {
@@ -118,14 +137,19 @@
                   id="titleInput"
                   name="titleInput" 
                   placeholder="Event Label"/>
+          <div class="validationAlert">
+            <p>This isn't a valid label</p>
+          </div>
       </div>
       
       <div class="formBlock">
           <label for="dateTimeInput">Date/time:</label>
           <input type="datetime-local" 
                   id="dateTimeInput"
-                  name="dateTimeInput" 
-                  value="2018-06-12T19:30"/>
+                  name="dateTimeInput" />
+            <div class="validationAlert">
+              <p>This isn't a valid time </p>
+            </div>
       </div>
     </div>
     <div id="submitEventContainer">
