@@ -1,7 +1,6 @@
 // TODO: Set dateTime value to today tomorrow?
 // TODO: Random placeholders for labels
 // TODO: Edit events
-// TODO: No events alert shows up when clicking on the thing again
 
 
 let idIncrementor = 0
@@ -13,7 +12,10 @@ main()
 // Functions
 
 function main() {
+
   pullAllEvents()
+  addGradient()
+
 
   // Event Listeners
   document.querySelector("#submitEventButton").addEventListener('click', function() {
@@ -92,6 +94,7 @@ function pullAllEvents() {
   });
 
   handleNoEventsMessage() 
+  return events
 }
 
 function removeEvent(id) {
@@ -151,6 +154,37 @@ function addToEventsContainer(obj) {
   })
 
   eventsContainer.appendChild(eventContainer)
+}
+
+function addGradient() {
+  let lightness = 0
+  console.log("gradient stuff")
+
+  let all = document.querySelectorAll(".eventContainer")
+  let x = 100 / all.length
+
+  console.log(all)
+  console.log(all[0])
+  console.log(all.length)
+  
+
+
+  // say 4
+  // then 25
+  let index = 0
+
+  for (i = 100; i > 0; i-=x) {
+    console.log("for loop")
+    let element = all[index]
+    let hsl = `hsl(0, 0%, ${i}%)`
+
+    // set element backgroundColor
+    console.log(element)
+
+    index++
+  }
+
+
 }
 
 
