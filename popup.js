@@ -11,17 +11,6 @@ let eventsContainer = document.querySelector("#eventsContainer")
 let dateTimeInput = document.querySelector("#dateTimeInput")
 let titleInput = document.querySelector("#titleInput")
 
-console.log("titleInput", titleInput)
-
-dateTimeInput.addEventListener('keyup', function(e) {
-  console.log("Validating dateTime input")
-  validate(dateTimeInput)
-})
-
-titleInput.addEventListener('keyup', function(e) {
-  console.log("Validating title input")
-  validate(titleInput)
-})
 
 
 main() 
@@ -40,10 +29,15 @@ function main() {
 
   // Event Listeners
   document.querySelector("#submitEventButton").addEventListener('click', function() {
-    pushEvent()
-    document.querySelector("#addEventContainer").classList.remove("show")
-    document.querySelector("#addEventForm").classList.remove("show")
-    document.querySelector("#submitEventContainer").classList.remove("show")
+    if (validate(dateTimeInput) && validate(titleInput)) { 
+      console.log("YAY VALID")
+      pushEvent()
+      document.querySelector("#addEventContainer").classList.remove("show")
+      document.querySelector("#addEventForm").classList.remove("show")
+      document.querySelector("#submitEventContainer").classList.remove("show")
+    } else {
+      console.log("Awwww not VALID")
+    }
   })
 
   document.querySelector("#addEventButton").addEventListener('click', function() {
@@ -51,6 +45,17 @@ function main() {
     document.querySelector("#addEventForm").classList.add("show")
     document.querySelector("#submitEventContainer").classList.add("show")
   })
+
+  dateTimeInput.addEventListener('keyup', function(e) {
+    console.log("Validating dateTime input")
+    validate(dateTimeInput)
+  })
+  
+  titleInput.addEventListener('keyup', function(e) {
+    console.log("Validating title input")
+    validate(titleInput)
+  })
+  
 
 
 }
@@ -66,37 +71,48 @@ function handleNoEventsMessage() {
 }
 
 function validate(input) {
-  console.log("validating", input)
-
+  let sanitisedInput = sanitise(input.value)
   // Sanitise
-  if (input == undefined || input.value.length < 1) {
+  if (sanitisedInput == undefined || sanitisedInput.length < 1) {
+    
     input.nextElementSibling.classList.add("true")
+    return false
   } else {
     input.nextElementSibling.classList.remove("true")
+    return true
   }
+}
+
+function sanitise(str) {
+  if (str.length > 0) {
+    return str.replace(/[|;$%@"<>()+,]/g, "");
+  } else {
+    return str
+  } 
 }
 
 function pushEvent() {
   // Create an event and push it to the global array
-  let event = {
-    id: idIncrementor,
-    titleInput: titleInput.value,
-    dateTime: dateTimeInput.value
-  }
-
-  events.push(event)
-  addToEventsContainer(event)
-
-  // Store in chrome sync
-  chrome.storage.sync.set({'events': events}, function() {
-    console.log("Success! Events pushed")
-    console.log(">", events)
-  });
-
-  // Increment ID
-  idIncrementor+=1
-
-  handleNoEventsMessage()
+    let event = {
+      id: idIncrementor,
+      titleInput: sanitise(titleInput.value),
+      dateTime: sanitise(dateTimeInput.value)
+    }
+  
+    events.push(event)
+    addToEventsContainer(event)
+  
+    // Store in chrome sync
+    chrome.storage.sync.set({'events': events}, function() {
+      console.log("Success! Events pushed")
+      console.log(">", events)
+    });
+  
+    // Increment ID
+    idIncrementor+=1
+  
+    handleNoEventsMessage()
+  
 }
 
 function pullAllEvents(cb) {
