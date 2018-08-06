@@ -23,37 +23,32 @@ function main() {
     setGradients()
     handleNoEventsMessage()
 
-    document.querySelector("#dateTimeInput").value = moment().format('YYYY-MM-DDTHH:mm') // TODO: Make this actually work
+    document.querySelector("#dateTimeInput").value = moment().format("YYYY-MM-DDTHH:mm") // TODO: Make this actually work
     
   })
 
   // Event Listeners
-  document.querySelector("#submitEventButton").addEventListener('click', function() {
+  document.querySelector("#submitEventButton").addEventListener("click", function() {
     if (validate(dateTimeInput) && validate(titleInput)) { 
-      console.log("YAY VALID")
       pushEvent()
       document.querySelector("#addEventContainer").classList.remove("show")
       document.querySelector("#addEventForm").classList.remove("show")
       document.querySelector("#submitEventContainer").classList.remove("show")
-    } else {
-      console.log("Awwww not VALID")
-    }
+    } 
   })
 
-  document.querySelector("#addEventButton").addEventListener('click', function() {
+  document.querySelector("#addEventButton").addEventListener("click", function() {
     document.querySelector("#addEventContainer").classList.add("show")
     document.querySelector("#addEventForm").classList.add("show")
     document.querySelector("#submitEventContainer").classList.add("show")
   })
 
-  dateTimeInput.addEventListener('keyup', function(e) {
-    console.log("Validating dateTime input")
-    validate(dateTimeInput)
+  dateTimeInput.addEventListener("keyup", function(e) {
+    validate(e.target)
   })
   
-  titleInput.addEventListener('keyup', function(e) {
-    console.log("Validating title input")
-    validate(titleInput)
+  titleInput.addEventListener("keyup", function(e) {
+    validate(e.target)
   })
   
 
@@ -61,11 +56,9 @@ function main() {
 }
 
 function handleNoEventsMessage() {
-  console.log("handling no events!")
   if (events.length < 1) {
     document.querySelector("#noEventsAlert").classList.add("true")
   } else {
-    console.log("There's events here!")
     document.querySelector("#noEventsAlert").classList.remove("true")
   }
 }
@@ -103,7 +96,7 @@ function pushEvent() {
     addToEventsContainer(event)
   
     // Store in chrome sync
-    chrome.storage.sync.set({'events': events}, function() {
+    chrome.storage.sync.set({"events": events}, function() {
       console.log("Success! Events pushed")
       console.log(">", events)
     });
@@ -116,7 +109,7 @@ function pushEvent() {
 }
 
 function pullAllEvents(cb) {
-  chrome.storage.sync.get(['events'], function(result) {
+  chrome.storage.sync.get(["events"], function(result) {
     console.log("Success! All events pulled")
     console.log(">", result.events)
 
@@ -144,7 +137,6 @@ function pullAllEvents(cb) {
 
 function removeEvent(id) {
 
-  console.log("before", events)
   // Remove from DOM
   let element = document.querySelector(`div[data-eventId="${id}"]`)
   element.remove()
@@ -155,12 +147,10 @@ function removeEvent(id) {
   })
 
     // Store in chrome sync
-    chrome.storage.sync.set({'events': events}, function() {
+    chrome.storage.sync.set({"events": events}, function() {
       console.log("Success! Events pushed")
       console.log(">", events)
     });
-
-  console.log("Successfully removed event", element)
 
   handleNoEventsMessage()
 }
@@ -180,7 +170,7 @@ function addToEventsContainer(obj) {
   let dateTimeElement = document.createElement("h3")
 
   titleElement.appendChild(document.createTextNode(obj.titleInput))
-  dateTimeElement.appendChild(document.createTextNode(moment(obj.dateTime).format('Do MMMM YYYY, h:mma')))
+  dateTimeElement.appendChild(document.createTextNode(moment(obj.dateTime).format("Do MMMM YYYY, h:mma")))
   dateTimeRelativeElement.appendChild(document.createTextNode(moment(obj.dateTime).fromNow()))
 
   let removeElement = document.createElement("sub")
@@ -192,7 +182,7 @@ function addToEventsContainer(obj) {
   eventContainer.appendChild(removeElement)
   // Remove button
 
-  removeElement.addEventListener('click', function(event) {
+  removeElement.addEventListener("click", function(event) {
     removeEvent(event.target.parentElement.getAttribute("data-eventId"))
   })
 
@@ -202,8 +192,6 @@ function addToEventsContainer(obj) {
 }
 
 function setGradients() {
-  let lightness = 0
-  console.log("gradient stuff")
 
   let all = document.querySelectorAll(".eventContainer")
   let x = 100 / (all.length+1)
@@ -212,22 +200,19 @@ function setGradients() {
   // then 25
   let index = 0
 
-  for (i = 100-x; i > 0; i-=x) {
-    console.log("for loop")
+  for (let i = 100-x; i > 0; i-=x) {
     let element = all[index]
-    console.log("index", index)
-    console.log("element", element)
 
     // set element backgroundColor
     element.style.backgroundColor = `hsl(0, 0%, ${i}%)`
 
     if (i <= 50) {
-      element.style.color = 'white'
+      element.style.color = "white"
     } else {
-      element.style.color = 'black'
+      element.style.color = "black"
     }
-    console.log(element)
-
+    
+    // Next element
     index++
   }
 
