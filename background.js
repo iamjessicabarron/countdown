@@ -8,7 +8,7 @@ console.log("Running!")
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   // No tabs or host permissions needed!
-  console.log('I clicked it!', tab.url);
+  console.log("I clicked it!", tab.url);
   // chrome.tabs.executeScript({
   //   code: 'document.body.style.backgroundColor="red"'
   // });

@@ -2,20 +2,24 @@
 // TODO: Random placeholders for labels
 // TODO: Edit events
 
-
-let idIncrementor = 0
-let events = []
-let eventsContainer = document.querySelector("#eventsContainer")
-
 // User input
 let dateTimeInput = document.querySelector("#dateTimeInput")
 let titleInput = document.querySelector("#titleInput")
+let idIncrementor = 0
+
+// All events
+let events = []
+let eventsContainer = document.querySelector("#eventsContainer")
+
+
 
 
 
 main() 
 
 // Functions
+
+
 
 function main() {
 
@@ -24,6 +28,9 @@ function main() {
     handleNoEventsMessage()
 
     document.querySelector("#dateTimeInput").value = moment().format("YYYY-MM-DDTHH:mm") // TODO: Make this actually work
+    
+    let x = new ValidatedInput("titleInput", "validation")
+    let y = new ValidatedInput("dateTimeInput", "validation")
     
   })
 
