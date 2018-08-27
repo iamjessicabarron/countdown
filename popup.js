@@ -6,6 +6,9 @@
 let dateTimeInput = document.querySelector("#dateTimeInput")
 let titleInput = document.querySelector("#titleInput")
 let idIncrementor = 0
+    
+let validatedTitleInput = new ValidatedInput("titleInput", "validation")
+let validatedDateTimeInput = new ValidatedInput("dateTimeInput", "validation")
 
 // All events
 let events = []
@@ -27,16 +30,14 @@ function main() {
     setGradients()
     handleNoEventsMessage()
 
-    document.querySelector("#dateTimeInput").value = moment().format("YYYY-MM-DDTHH:mm") // TODO: Make this actually work
-    
-    let x = new ValidatedInput("titleInput", "validation")
-    let y = new ValidatedInput("dateTimeInput", "validation")
+    dateTimeInput.value = moment().format("YYYY-MM-DDTHH:mm")
+
     
   })
 
   // Event Listeners
   document.querySelector("#submitEventButton").addEventListener("click", function() {
-    if (validate(dateTimeInput) && validate(titleInput)) { 
+    if (validatedDateTimeInput.validate() && validatedDateTimeInput.validate()) { 
       pushEvent()
       document.querySelector("#addEventContainer").classList.remove("show")
       document.querySelector("#addEventForm").classList.remove("show")
@@ -50,16 +51,14 @@ function main() {
     document.querySelector("#submitEventContainer").classList.add("show")
   })
 
-  dateTimeInput.addEventListener("keyup", function(e) {
-    validate(e.target)
-  })
+  // dateTimeInput.addEventListener("keyup", function(e) {
+  //   validate(e.target)
+  // })
   
-  titleInput.addEventListener("keyup", function(e) {
-    validate(e.target)
-  })
+  // titleInput.addEventListener("keyup", function(e) {
+  //   validate(e.target)
+  // })
   
-
-
 }
 
 function handleNoEventsMessage() {
@@ -70,33 +69,12 @@ function handleNoEventsMessage() {
   }
 }
 
-function validate(input) {
-  let sanitisedInput = sanitise(input.value)
-  // Sanitise
-  if (sanitisedInput == undefined || sanitisedInput.length < 1) {
-    
-    input.nextElementSibling.classList.add("true")
-    return false
-  } else {
-    input.nextElementSibling.classList.remove("true")
-    return true
-  }
-}
-
-function sanitise(str) {
-  if (str.length > 0) {
-    return str.replace(/[|;$%@"<>()+,]/g, "");
-  } else {
-    return str
-  } 
-}
-
 function pushEvent() {
   // Create an event and push it to the global array
     let event = {
       id: idIncrementor,
-      titleInput: sanitise(titleInput.value),
-      dateTime: sanitise(dateTimeInput.value)
+      titleInput: validatedTitleInput.value,
+      dateTime: validatedDateTimeInput.value
     }
   
     events.push(event)
