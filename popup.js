@@ -3,8 +3,6 @@
 // TODO: Edit events
 
 // User input
-let dateTimeInput = document.querySelector("#dateTimeInput")
-let titleInput = document.querySelector("#titleInput")
 let idIncrementor = 0
     
 let validatedTitleInput = new ValidatedInput("titleInput", "validation")
@@ -14,15 +12,7 @@ let validatedDateTimeInput = new ValidatedInput("dateTimeInput", "validation")
 let events = []
 let eventsContainer = document.querySelector("#eventsContainer")
 
-
-
-
-
 main() 
-
-// Functions
-
-
 
 function main() {
 
@@ -30,9 +20,7 @@ function main() {
     setGradients()
     handleNoEventsMessage()
 
-    dateTimeInput.value = moment().format("YYYY-MM-DDTHH:mm")
-
-    
+    validatedDateTimeInput.input.value = moment().format("YYYY-MM-DDTHH:mm")
   })
 
   // Event Listeners

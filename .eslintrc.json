@@ -9,7 +9,8 @@
     },
     "globals": {
       "chrome": false,
-      "moment": false
+      "moment": false,
+      "ValidatedInput": false
     },
     "rules": {
         "accessor-pairs": "error",
@@ -41,7 +42,7 @@
         "callback-return": "error",
         "camelcase": "error",
         "capitalized-comments": "off",
-        "class-methods-use-this": "error",
+        "class-methods-use-this": "off",
         "comma-dangle": "error",
         "comma-spacing": [
             "error",
@@ -60,7 +61,7 @@
             "never"
         ],
         "consistent-return": "error",
-        "consistent-this": "error",
+        "consistent-this": ["error", "self"],
         "curly": "error",
         "default-case": "error",
         "dot-location": "error",
