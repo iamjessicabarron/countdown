@@ -8,7 +8,7 @@
     ],
     "background": {
       "scripts": [
-        "dist/js/background.js"
+        "lib/background.js"
       ],
       "persistent": false
     },

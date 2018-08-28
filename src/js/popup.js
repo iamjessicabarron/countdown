@@ -12,6 +12,37 @@ let validatedDateTimeInput = new ValidatedInput("dateTimeInput", "validation")
 let events = []
 let eventsContainer = document.querySelector("#eventsContainer")
 
+let hue = 13 // x/360   13, 250, 173/82
+let sat = 90 // x/100
+
+let colorOptions = [
+  {
+    hue: 13,
+    sat: 90
+  },
+  {
+    hue: 173,
+    sat: 82
+  },
+  {
+    hue: 249,
+    sat: 32
+  },
+  {
+    hue: 353,
+    sat: 83
+  }
+
+
+]
+
+// #F46038
+// #2F294F
+// #1B998B
+// #E71D35
+// #E8D44D
+
+
 main() 
 
 function main() {
@@ -25,7 +56,7 @@ function main() {
 
   // Event Listeners
   document.querySelector("#submitEventButton").addEventListener("click", function() {
-    if (validatedDateTimeInput.validate() && validatedDateTimeInput.validate()) { 
+    if (validatedDateTimeInput.validate() && validatedTitleInput.validate()) { 
       pushEvent()
       document.querySelector("#addEventContainer").classList.remove("show")
       document.querySelector("#addEventForm").classList.remove("show")
@@ -62,21 +93,23 @@ function pushEvent() {
   
     // Store in chrome sync
     chrome.storage.sync.set({"events": events}, function() {
-      console.log("Success! Events pushed")
-      console.log(">", events)
+      print("Success! Events pushed")
+      print(">", events)
     });
   
     // Increment ID
     idIncrementor+=1
-  
+    
     handleNoEventsMessage()
+    validatedTitleInput.value = ""
+    validatedTitleInput.input.value = ""
   
 }
 
 function pullAllEvents(cb) {
   chrome.storage.sync.get(["events"], function(result) {
-    console.log("Success! All events pulled")
-    // console.log(">", result.events)
+    print("Success! All events pulled")
+    // print(">", result.events)
 
     events = result.events
       if (result.events !== undefined) {
@@ -88,7 +121,7 @@ function pullAllEvents(cb) {
         if (result.events[result.events.length-1].id != undefined) {
           idIncrementor = result.events[result.events.length-1].id+1
         } else {
-          console.log("Error: ID of last item is undefined")
+          print("Error: ID of last item is undefined")
         }
       } else {
         events = []
@@ -116,11 +149,12 @@ function removeEvent(id) {
 
     // Store in chrome sync
     chrome.storage.sync.set({"events": events}, function() {
-      console.log("Success! Events pushed")
-      console.log(">", events)
+      print("Success! Events pushed")
+      print(">", events)
     });
 
   handleNoEventsMessage()
+  setGradients()
 }
 
 function addToEventsContainer(obj) {
@@ -142,13 +176,13 @@ function addToEventsContainer(obj) {
   dateTimeRelativeElement.appendChild(document.createTextNode(moment(obj.dateTime).fromNow()))
 
   let removeElement = document.createElement("sub")
-  removeElement.appendChild(document.createTextNode("remove"))
+  removeElement.appendChild(document.createTextNode("x"))
+  removeElement.classList.add("removeButton")
 
   eventContainer.appendChild(titleElement)
   eventContainer.appendChild(dateTimeRelativeElement)
   eventContainer.appendChild(dateTimeElement)
   eventContainer.appendChild(removeElement)
-  // Remove button
 
   removeElement.addEventListener("click", function(event) {
     removeEvent(event.target.parentElement.getAttribute("data-eventId"))
@@ -172,7 +206,7 @@ function setGradients() {
     let element = all[index]
 
     // set element backgroundColor
-    element.style.backgroundColor = `hsl(0, 0%, ${i}%)`
+    element.style.backgroundColor = `hsl(${hue}, ${sat}%, ${i}%)`
 
     if (i <= 50) {
       element.style.color = "white"
@@ -183,8 +217,6 @@ function setGradients() {
     // Next element
     index++
   }
-
-
 }
 
 

@@ -23,9 +23,7 @@ class ValidatedInput {
   // Validation Functions
 
   validate() {
-    print("validating")
     this.value = this.sanitise(this.input.value) // TODO: Do I need this?
-
     if (this.input.value == undefined || this.input.value.length < 1) {
       // Some issues, add errors
       this.addValidationMessage("This isn't a valid response: It's empty.")
@@ -44,7 +42,6 @@ class ValidatedInput {
       this.updateValidationMessages() 
       return false
     } else {
-      print("returning true")
       // No issues, remove errors
       this.validationMessages = []
       

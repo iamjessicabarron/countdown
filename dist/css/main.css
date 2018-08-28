@@ -4,6 +4,14 @@ body {
   font-family: 'Courier New', Courier, monospace;
 }
 
+h2, h3 {
+  font-weight: 400;
+}
+
+h3 {
+  text-transform: uppercase;
+}
+
 label {
   display: block;
   padding-top: 10px;
@@ -110,4 +118,15 @@ input {
   margin-top: 4px;
   background-color:#ddd;
   padding: 10px;
+  position: relative;
+
+  -webkit-transition: color 1s, background-color 1s; /* Safari */
+  transition: color 1s, background-color 1s;
+}
+
+.removeButton {
+  /* font-family: sans-serif; */
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
