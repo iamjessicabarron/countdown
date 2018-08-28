@@ -42,7 +42,7 @@ function main() {
 }
 
 function handleNoEventsMessage() {
-  if (events.length < 1) {
+  if (events == undefined || events.length < 1) {
     document.querySelector("#noEventsAlert").classList.add("true")
   } else {
     document.querySelector("#noEventsAlert").classList.remove("true")
@@ -79,15 +79,7 @@ function pullAllEvents(cb) {
     // console.log(">", result.events)
 
     events = result.events
-
-//
-    // Deal with an empty array
-    // if (result.events != undefined) {
-      print("result.events is defined")
       if (result.events !== undefined) {
-        console.log("results.events is defined", result.events)
-        console.log(">>", result.events)
-
         result.events.forEach(event => {
           addToEventsContainer(event)
         });
@@ -98,6 +90,8 @@ function pullAllEvents(cb) {
         } else {
           console.log("Error: ID of last item is undefined")
         }
+      } else {
+        events = []
       }
     // }
 
