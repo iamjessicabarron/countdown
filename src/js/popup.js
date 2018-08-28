@@ -38,14 +38,6 @@ function main() {
     document.querySelector("#addEventForm").classList.add("show")
     document.querySelector("#submitEventContainer").classList.add("show")
   })
-
-  // dateTimeInput.addEventListener("keyup", function(e) {
-  //   validate(e.target)
-  // })
-  
-  // titleInput.addEventListener("keyup", function(e) {
-  //   validate(e.target)
-  // })
   
 }
 
@@ -84,23 +76,32 @@ function pushEvent() {
 function pullAllEvents(cb) {
   chrome.storage.sync.get(["events"], function(result) {
     console.log("Success! All events pulled")
-    console.log(">", result.events)
+    // console.log(">", result.events)
 
     events = result.events
 
+//
     // Deal with an empty array
-    if (result.events.length > 0) {
-      result.events.forEach(event => {
-        addToEventsContainer(event)
-      });
+    // if (result.events != undefined) {
+      print("result.events is defined")
+      if (result.events !== undefined) {
+        console.log("results.events is defined", result.events)
+        console.log(">>", result.events)
 
-      // Deal with id being undefined for whatever reason
-      if (result.events[result.events.length-1].id != undefined) {
-        idIncrementor = result.events[result.events.length-1].id+1
-      } else {
-        console.log("Error: ID of last item is undefined")
+        result.events.forEach(event => {
+          addToEventsContainer(event)
+        });
+  
+        // Deal with id being undefined for whatever reason
+        if (result.events[result.events.length-1].id != undefined) {
+          idIncrementor = result.events[result.events.length-1].id+1
+        } else {
+          console.log("Error: ID of last item is undefined")
+        }
       }
-    }
+    // }
+
+
     // Callback functions to call when events have been pulled
     cb()
   });

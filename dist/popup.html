@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Countdown Popup</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+  <body>
+    <div id="eventsContainer">
+      <div id="noEventsAlert">
+        <p>There's no events here! Add an event below</p>
+      </div>
+    </div>
+    <div id="addEventContainer">
+      <button id="addEventButton">+</button>
+    </div>
+
+    <!-- Form -->
+    <div id="addEventForm">
+      <div class="formBlock">
+          <label for="titleInput">Label</label>
+          <input type="text"
+                  id="titleInput"
+                  name="titleInput" 
+                  placeholder="Event Label"/>
+      </div>
+      
+      <div class="formBlock">
+          <label for="dateTimeInput">Date/time:</label>
+          <input type="datetime-local" 
+                  id="dateTimeInput"
+                  name="dateTimeInput" />
+      </div>
+    </div>
+    <div id="submitEventContainer">
+      <button id="submitEventButton">&#10003</button>
+    </div>
+
+
+  </body>
+  <script src="../lib/moment.js"></script>
+  <!-- <script src="js/main.js"></script> -->
+  <script src="js/helpers/helpers.js"></script>
+  <script src="js/helpers/input.js"></script>
+  
+  <script src="js/popup.js"></script>
+
+</html>
