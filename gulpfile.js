@@ -14,3 +14,14 @@ gulp.task('watch', function () {
     .pipe(gulp.dest("dist/js"))
 })
 
+gulp.task('default', function () {
+  return watch("src/js/**/*.js")
+    // .pipe(concat('main.js'))
+    .pipe(babel({
+      presets: ["env"]
+    }))
+    .pipe(minify())
+    .pipe(gulp.dest("dist/js"))
+  
+})
+

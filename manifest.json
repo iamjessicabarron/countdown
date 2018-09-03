@@ -2,6 +2,9 @@
     "name": "Countdown",
     "version": "1.0",
     "description": "Countdown to events!",
+    "icons": {
+      "128": "logo.png"
+    },
     "permissions": [
       "storage",
       "activeTab"

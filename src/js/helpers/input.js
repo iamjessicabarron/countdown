@@ -66,7 +66,7 @@ class ValidatedInput {
     } 
   }
 
-  // UI Functions
+  // UI Functions  
 
   createValidationAlert() {
     let divElement = document.createElement("div")
