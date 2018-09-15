@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "zip countdown-$npm_package_version.zip dist/**.*"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/iamjessicabarron/countdown#readme",
   "dependencies": {
+    "gulp-htmlmin": "^5.0.1",
     "npm": "^6.4.0"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "eslint": "^5.3.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
+    "gulp-clean-css": "^3.10.0",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0",
     "gulp-rename": "^1.4.0",

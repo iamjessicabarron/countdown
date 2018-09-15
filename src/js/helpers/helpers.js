@@ -1,3 +1,2 @@
 /* exported print for ESLint */
-let print = console.log
-print("helpers")
+let print = console.log 

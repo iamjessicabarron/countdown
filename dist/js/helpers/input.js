@@ -79,7 +79,7 @@ var ValidatedInput = function () {
       }
     }
 
-    // UI Functions
+    // UI Functions  
 
   }, {
     key: "createValidationAlert",

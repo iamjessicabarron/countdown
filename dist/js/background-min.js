@@ -1,0 +1,1 @@
+"use strict";console.log("Running!"),chrome.browserAction.onClicked.addListener(function(o){console.log("I clicked it!",o.url)});

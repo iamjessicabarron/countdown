@@ -1,3 +1,11 @@
+
+#Private keys 
+*.pem
+*.crx
+
+#ZIP Files
+*.zip
+
 # Logs
 logs
 *.log
