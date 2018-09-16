@@ -1,6 +1,6 @@
 {
   "name": "countdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "count down to events",
   "main": "background.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "zip countdown-$npm_package_version.zip dist/**.*"
+    "build": "zip countdown-$npm_package_version.zip dist/**"
   },
   "repository": {
     "type": "git",
