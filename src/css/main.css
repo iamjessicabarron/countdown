@@ -1,15 +1,31 @@
 
 body {
   width: 300px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Alike', serif;
+}
+
+h1 {
+  margin-top: 0px;
+  margin-left: 20px;
+  font-size: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+  font-size: 1.2em;
 }
 
 h2, h3 {
   font-weight: 400;
+  margin-left: 10px;
 }
 
 h3 {
+  opacity: 0.6;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2em;
+  font-size: 0.8em;
 }
 
 label {
@@ -17,20 +33,22 @@ label {
   padding-top: 10px;
   padding-bottom: 10px;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 #addEventButton {
-  border: none;
+  border: 1px solid black;
   padding: 4px 10px;
   background-color: black;
   color: white;
   font-size: 20px;
-  margin-top: 0px;
+  margin-top: -1px;
+  margin-left: -1px;
   font-weight: bold;
 }
 
 #addEventContainer {
-  margin-top: 4px;
+  /* margin-top: 4px; */
   border: 1px white solid;
   border-bottom: none;
 }
@@ -66,7 +84,7 @@ label {
 
 
 input {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Alike', serif;;
   padding: 8px 8px;
   width:  -webkit-fill-available;
 }
@@ -106,7 +124,7 @@ input {
 }
 
 .eventContainer {
-  margin-top: 4px;
+  /* margin-top: 4px; */
   background-color:#ddd;
   padding: 10px;
   position: relative;
