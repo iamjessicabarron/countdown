@@ -51,6 +51,7 @@ function main() {
 
   // Event Listeners
   document.querySelector("#submitEventButton").addEventListener("click", function () {
+    print("submit event button");
     if (validatedDateTimeInput.validate() && validatedTitleInput.validate()) {
       pushEvent();
       document.querySelector("#addEventContainer").classList.remove("show");
