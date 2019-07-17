@@ -1,6 +1,6 @@
 {
     "name": "Countdown",
-    "version": "0.0.0.10",
+    "version": "0.0.0.12",
     "description": "A tiny Chrome Extension that tells you when stuff is, relative to right now.",
     "icons": {
       "16": "img/logo16.png",

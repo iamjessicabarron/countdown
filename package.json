@@ -1,6 +1,6 @@
 {
   "name": "countdown",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "count down to events",
   "main": "background.js",
   "directories": {
