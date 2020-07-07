@@ -23,7 +23,7 @@
   "dependencies": {
     "gulp-htmlmin": "^5.0.1",
     "natives": "^1.1.6",
-    "npm": "^6.13.4"
+    "npm": "^6.14.6"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
